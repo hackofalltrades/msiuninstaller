@@ -47,13 +47,13 @@ if (!$app) { Write-Host "No additional apps found."}
 
             Write-Host "Verifying uninstall..."
 
-            $success = Get-ChildItem -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall, HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall |
+            $installed = Get-ChildItem -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall, HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall |
 
                 Get-ItemProperty |
 
                     Where-Object {($_.DisplayName -match "$name")}
 
-            if ($success) {Write-Host "Uninstall of $name Successful"}
+            if (!$installed) {Write-Host "Uninstall of $name Successful"}
 
                 else {Write-Host "Uninstall of $name Failed."}
 
